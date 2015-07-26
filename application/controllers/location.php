@@ -5,6 +5,11 @@ class Location extends CI_Controller {
 		$this->load->database();
 		$this->load->model('location_model');
 	}
+	/**
+	insert method
+	URL로 입력받은 데이터를 DB에 저장하고 성공 : 0 , 실패 : 1 json으로 return
+	link : http://(serverIP)/everywear/index.php/insert?ino=(data)&lon=(data)&lat=(data)
+	*/
 	function insert() {
 		// validation?
 
