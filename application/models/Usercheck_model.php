@@ -5,12 +5,16 @@ class Usercheck_model extends CI_Model{
 	}
 
 	public function getdata($id, $pw){
-		$id_query="select id from appuser where id='$id'";
-		$pw_query="select pw from appuser where id='$id'";
-		$DB_id=$this->db->query($id_query)->row();
-		$DB_pw=$this->db->query($pw_query)->row();
+		$query="select id from appuser where id='$id' and pw='$pw'";
+		$data=$this->db->query($query)->row();
+		/**
+		id와 pw가 모두 일치할 때 1
+		id는 일치하고 pw는 일치하지 않을때 0
+		id는 일치하지 않고 pw는 일치할 때 0
+		id와 pw가 모두 일치하지 않을 때 0
+		*/
 
-		if($id==$DB_id->id&&$pw==$DB_pw->pw){
+		if($data!=null){
 			$json_data = array(
 				'result' =>1
 			);
