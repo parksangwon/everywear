@@ -17,9 +17,19 @@ class Location_model extends CI_Model {
 		$this->db->set('lat', $data['lat']);
 		$this->db->insert('LOCATION');
 		$result = $this->db->insert_id(); // auto_increment value
-		//echo $this->db->last_query(); 마지막 성공쿼리
-		//echo $result;
-		return $result;
+
+		$json_data = null;
+		//성공시 auto_increment 값, 실패시 null
+		if ( $result != NULL ) {
+			$json_data = array(
+				'result' => 1
+			);
+		}  else {
+			$json_data = array(
+				'result' => 0
+			);
+		}
+		return $json_data;
 	}
 }
 ?>
