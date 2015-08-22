@@ -13,7 +13,7 @@ class Usercheck_model extends CI_Model{
 	id와 pw가 모두 일치하지 않을 때 0
 	*/
 	function searchUser($id, $pw) {
-		$query="select id from appuser where id='$id' and pw='$pw'";
+		$query="SELECT ID from APPUSER WHERE ID='$id' and PW='$pw'";
 		$data=$this->db->query($query)->row();
 
 		$json_data = null;
