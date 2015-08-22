@@ -4,15 +4,16 @@
  	function __construct() {
 		parent::__construct();
 		$this->load->database();
-		$this ->load -> model('geofence_model');
- }
-
-public function geodata($ino){
-	$get_geofence_data=$this->geofence_model->geofence_Table($ino);
-	 echo json_encode($get_geofence_data)."<br/><br/>";
-}
-
-
-
+		$this ->load -> model('Geofence_model');
+	}
+	/**
+	getGeofence method
+	일련번호가 ino인 Geofence를 가져와 return
+	link : http://(serverIP)/index.php/Geofence/getGeofence/(ino)
+	*/
+	function getGeofence($ino){
+		$geofenceData=$this->Geofence_model->getGeofenceData($ino);
+		 echo json_encode($geofenceData);
+	}
 }
 ?>
