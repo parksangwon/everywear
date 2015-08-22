@@ -4,12 +4,12 @@ class Location_model extends CI_Model {
 
 	}
 	/**
-	add 메서드
+	addLocation method
 	[name, date, lon, lat] 데이터를 갖는 Array를 인자로 $data에 넘겨 받고,
 	각 항복을 setting한 후 location이라는 테이블에 Insert한다.
-	성공 시, AUTO_INCREMENT 값 Return
+	성공 시 1, 실패 시 0
 	*/
-	function add($data) {
+	function addLocation($data) {
 		//echo var_dump($data);
 		$this->db->set('ino', $data['ino']);
 		$this->db->set('date', $data['date']);
@@ -30,6 +30,15 @@ class Location_model extends CI_Model {
 			);
 		}
 		return $json_data;
+	}
+	/**
+	getLocations method
+	일련번호가 ino인 위치데이터들을 가져와서 return
+	*/
+	function getLocations($ino){
+		$query="SELECT * FROM LOCATION WHERE INO='$ino'";
+		$loc_data=$this->db->query($query)->result_array();
+		return $loc_data;
 	}
 }
 ?>
