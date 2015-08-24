@@ -11,7 +11,7 @@ class Location extends CI_Controller {
 	link : http://(serverIP)/index.php/Location/insertLocaton/(ino)/(date)/(lon)/(lat)
 	*/
 	function insertLocation($ino, $date, $lon, $lat) {
-		// parse dateStr to datetime format string
+		
 		$formatedStr = substr($date, 0, 4)."-".substr($date, 4, 2)."-".substr($date, 6, 2)." "
 						.substr($date, 8, 2).":".substr($date, 10, 2).":".substr($date, 12, 2);
 		

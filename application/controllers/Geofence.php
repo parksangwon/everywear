@@ -8,7 +8,7 @@
 	}
 	/**
 	getGeofence method
-	일련번호가 ino인 Geofence를 가져와 return
+	일련번호가 ino인 Geofence를 return
 	link : http://(serverIP)/index.php/Geofence/getGeofence/(ino)
 	*/
 	function getGeofence($ino){
