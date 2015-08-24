@@ -54,16 +54,16 @@ class User  extends CI_Controller{
 		$sex = $this->input->get('sex');
 
 		$result = $this->toArray(false);
-		if ( !strcmp("", $id) && !strcmp("", $pw) && !strcmp("", $name) && !strcmp("", $email) && !strcmp("", $sex)) {
-		         	$result = $this->User_model->addUser(array(
-	                        'id'	  => $id,
-	                        'pw'	  => $pw,
-	                        'name' => $name,
-	                        'email' => $email,
-	                        'sex'	  => $sex
-	         		));
+		if ( strcmp("", $id)!=0 && strcmp("", $pw)!=0 && strcmp("", $name)!=0 && strcmp("", $email)!=0 && strcmp("", $sex)!=0 ) {
+			$result = $this->User_model->addUser(array(
+				'id'	  => $id,
+				'pw'	  => $pw,
+				'name' => $name,
+				'email' => $email,
+				'sex'	  => $sex
+			));
 		}
-	         	echo json_encode($result);
+		echo json_encode($result);
 	}
 
 	private function toArray($bool) {
