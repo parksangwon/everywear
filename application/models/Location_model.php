@@ -12,16 +12,11 @@ class Location_model extends CI_Model {
 	function addLocation($data) {
 
 		/* 존재하는 디바이스인지 먼저 validation */
-		$this->load->model('Usercheck_model');
-		$device = $this->Usercheck_model->searchDevice($data['ino']);
+		$this->load->model('User_model');
+		$device = $this->User_model->searchDevice($data['ino']);
 
 		$json_data = null;
-		if ($device['result'] == 0) {
-			$json_data = array(
-				'result' => 0
-			);
-		}
-		else {
+		if ($device['result']  != 0) {
 			$this->db->set('ino', $data['ino']);
 			$this->db->set('date', $data['date']);
 			$this->db->set('lon', $data['lon']);
@@ -39,6 +34,10 @@ class Location_model extends CI_Model {
 					'result' => 0
 				);
 			}
+		} else{
+			$json_data = array(
+				'result' => 0
+			);
 		}
 		return $json_data;
 	}
