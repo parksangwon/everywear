@@ -27,7 +27,31 @@ class Group  extends CI_Controller{
 
 	}
 
+/**
+match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반환한다.
 
+*/
+	function match(){
+		$ino=$this->input->get('ino');
+		$result=$this->Group_model->match($ino);
+
+
+			if($result['result'] == 1){
+			$json_data=array(
+				'result'=>1);
+
+			} else{
+			$json_data = array(
+				'result' =>0
+			);
+			
+			}		
+
+		echo json_encode($json_data);
+
+
+
+	}
 	/**
 	 register메소드는 ino, uname, id, pname, relat, op 매개변수를 넘겨받아
 	 model의 match메소드로 ino를 넘겨서 ino가 존재하는지를 체크한다.
@@ -38,7 +62,9 @@ class Group  extends CI_Controller{
 	*/
 	function register($ino,$uname,$id,$pname,$relat,$op){
 		$ino_data=$this->Group_model->match($ino);
-		
+		/**
+		$ino_dataa는 추후에 수정예정
+		*/
 		
 		if($ino_data['result'] == 1){
 			$register_data=$this->Group_model->registerParty($ino,$uname,$id,$pname,$relat,$op);
