@@ -9,9 +9,10 @@ class Group  extends CI_Controller{
 	/**
 	tempIno메소드는 링크로부터 ino를 받아서 Group_model의 add메소드로 ino를 넘겨준다.
 
-	link : http://(serverIP)/index.php/Group/tempIno/(ino)
+	link : http://(serverIP)/index.php/Group/tempIno?ino=(ino)
 	*/
-	function tempIno($ino){
+	function tempIno(){
+		$ino = $this->input->get('ino');
 		$temp_ino=$this->Group_model->add($ino);
 
 		if($temp_ino ==TRUE){
@@ -58,9 +59,16 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 	 그 결과가 존재하면 result=>1이면 registerParty메소드로 ino, uname, id, pname, relat, op 변수를
 	 넘겨서  그룹을 등록한다.
 
-	link : http://(serverIP)/index.php/Group/register/(ino)/(uname)/(id)/(pname)/(relat)/(op)
+	link : http://(serverIP)/index.php/Group/register?ino=(ino)&uname=(uname)&id=(id)&pname=(pname)&relat=(relat)&op=(op)
 	*/
-	function register($ino,$uname,$id,$pname,$relat,$op){
+	function register(){
+		$ino   = $this->input->get('ino');
+		$uname = $this->input->get('uname');
+		$id    = $this->input->get('id');
+		$pname = $this->input->get('pname');
+		$relat = $this->input->get('relat');
+		$op    = $this->input->get('op');
+
 		$ino_data=$this->Group_model->match($ino);
 		/**
 		$ino_dataa는 추후에 수정예정
@@ -80,8 +88,5 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 
 		echo json_encode($json_data);
 	}
-
 }
-
-
 ?>

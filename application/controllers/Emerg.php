@@ -15,10 +15,10 @@ class Emerg extends CI_Controller {
 	loc_id_data 변수는 배열로 저장된 loc_data(마지막 위치데이터)와 get_id_data (해당 ino를 저장한 id들)을
 	다시 배열로 저장하여 한 번에 표시해 주는 메소드이다.
 
-	link : http://(serverIP)/index.php/Emerg/getinfo/(ino)
+	link : http://(serverIP)/index.php/Emerg/getinfo?ino=(ino)
 	*/
-	public function getinfo($ino){
-
+	public function getinfo(){
+		$ino = $this->input->get('ino');
 		$loc_data=$this->emerg_model->getdata($ino);
 		$get_id_data=$this->emerg_model->groupcheck($ino);
 		$loc_id_data=array($loc_data[0],$get_id_data);

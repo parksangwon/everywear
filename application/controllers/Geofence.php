@@ -9,9 +9,10 @@
 	/**
 	getGeofence method
 	일련번호가 ino인 Geofence를 return
-	link : http://(serverIP)/index.php/Geofence/getGeofence/(ino)
+	link : http://(serverIP)/index.php/Geofence/getGeofence?ino=(ino)
 	*/
-	function getGeofence($ino){
+	function getGeofence(){
+		$ino = $this->input->get('ino');
 		$geofenceData=$this->Geofence_model->getGeofenceData($ino);
 		 echo json_encode($geofenceData);
 	}
