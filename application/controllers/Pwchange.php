@@ -18,29 +18,27 @@ result로 0을 어플에 반환한다.
 	function check(){
 		$id=$this->input->get('id');
 		$pw=$this->input->get('pw');
-		$change_pw=$this->input->get('changePw');
+		$newPw=$this->input->get('newPw');
 
-		$result=$this->Pwchange_model->check($id,$pw);
-			 
-			if($result['result']==1){
-				$this-> change($id,$change_pw);
-			}else{
 
-				echo json_encode($result);
+		$result = array('result' => 0);
+		if ( strcmp($id, '') != 0 && strcmp($pw, '') != 0 && strcmp($newPw, '') != 0 ) {
+			$updateResult=$this->Pwchange_model->check($id,$pw);
+			if( $updateResult ){
+				$result = $this->change($id, $newPw);
 			}
-
-
-
+		}
+		echo json_encode($result);
 	}
 /**
- change 메소드는 check메서드로부터 id와 change_pw를 매개변수로 넘겨받아서
+ change 메소드는 check메서드로부터 id와 newPw를 매개변수로 넘겨받아서
  비밀번호를 변경하기 위해서 model로 넘기는 역할을 한다. 
 */
-	function change($id,$change_pw){
+	private function change($id,$newPw){
 		
-		$result=$this->Pwchange_model->change($id,$change_pw);
+		$result=$this->Pwchange_model->change($id,$newPw);
 
-		echo json_encode($result);
+		return $result;
 
 	}	
 
