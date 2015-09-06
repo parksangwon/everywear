@@ -15,7 +15,7 @@ class Location_model extends CI_Model {
 		$this->load->model('User_model');
 		$device = $this->User_model->searchDevice($data['ino']);
 
-		$json_data = null;
+		$json_data = array('result' => 0);
 		if ($device['result']  != 0) {
 			$this->db->set('ino', $data['ino']);
 			$this->db->set('date', $data['date']);
@@ -29,15 +29,7 @@ class Location_model extends CI_Model {
 				$json_data = array(
 					'result' => 1
 				);
-			}  else {
-				$json_data = array(
-					'result' => 0
-				);
 			}
-		} else{
-			$json_data = array(
-				'result' => 0
-			);
 		}
 		return $json_data;
 	}
