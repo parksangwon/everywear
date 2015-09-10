@@ -36,22 +36,17 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 		$ino=$this->input->get('ino');
 		$result=$this->Group_model->match($ino);
 
-
-			if($result['result'] == 1){
+		if ($result['result'] == 1) {
 			$json_data=array(
-				'result'=>1);
-
-			} else{
+				'result'=>1
+			);
+		} else{
 			$json_data = array(
 				'result' =>0
 			);
-			
-			}		
+		}
 
 		echo json_encode($json_data);
-
-
-
 	}
 	/**
 	 register메소드는 ino, uname, id, pname, relat, op 매개변수를 넘겨받아
@@ -87,6 +82,53 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 		}		
 
 		echo json_encode($json_data);
+	}
+
+	/**
+	그룹 리스트 반환 메서드(id)
+	params: id
+	return: pname[]
+	*/
+	function getGroups() {
+		$id = $this->input->get('id');
+		if ( 0 != strcmp($id, '') ) {
+			$result = $this->Group_model->getGroupList($id);
+			echo $this->urldecodeArr(json_encode($result));
+		}
+	}
+
+	/**
+	해당 그룹에 해당하는 기기 리스트 반환 메서드(id, pname)
+	params: id, pname
+	return: (ino, relat)[]
+	*/
+	function getDevices() {
+		$id = $this->input->get('id');
+		$pname = $this->input->get('pname');
+		if ( 0 != strcmp($id, '') && 0 != strcmp($pname, '') )	{
+			$result = $this->Group_model->getDeviceList($id, $pname);
+			echo $this->urldecodeArr(json_encode($result));
+		}
+	}
+
+	/**
+	다차원배열 urldecodeing 메서드
+	params: array $data
+	*/
+	private function urldecodeArr($data) {
+		$new_data = array();
+		if(is_array($data)) {
+			foreach($data AS $k => $v) {
+				if(is_array($v)) {
+					$new_data[$k] = $this->urlencodeArr($v);
+				} else {
+					$new_data[$k] = rawurldecode($v);
+				}
+			}
+		} else {
+			$new_data = rawurldecode($data);
+		}
+		return $new_data;
 	}
 }
 ?>

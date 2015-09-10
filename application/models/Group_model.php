@@ -66,6 +66,45 @@ class Group_model extends CI_Model{
 		return $json_data;
 	}
 
+	/**
+	그룹리스트 조회
+	params: id
+	return: pname[]
+	*/
+	function getGroupList($id) {
+		$query = "SELECT DISTINCT pname FROM PARTY WHERE id='$id'";
+		$result = $this->db->query($query)->result_array();
+		return $this->urlencodeArr($result);
+	}
+	/**
+	그룹에 속한 IoT장비 조회
+	params: id, pname
+	return: (ino, relat)[]
+	*/
+	function getDeviceList($id, $pname) {
+		$query = "SELECT ino, relat FROM PARTY WHERE id='$id' AND pname='$pname'";
+		$result = $this->db->query($query)->result_array();
+		return $this->urlencodeArr($result);
+	}
 
+	/**
+	다차원배열 urlencodeing 메서드
+	params: $data[]
+	*/
+	private function urlencodeArr($data) {
+		$new_data = array();
+		if(is_array($data)) {
+			foreach($data AS $k => $v) {
+				if(is_array($v)) {
+					$new_data[$k] = $this->urlencodeArr($v);
+				} else {
+					$new_data[$k] = rawurlencode($v);
+				}
+			}
+		} else {
+			$new_data = rawurlencode($data);
+		}
+		return $new_data;
+	}
 }
 ?>
