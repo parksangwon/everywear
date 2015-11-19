@@ -17,7 +17,6 @@ class Location_model extends CI_Model {
 
 		$json_data = array('result' => 0);
 		if ($device['result']  != 0) {
-echo $data['date'];
 			$this->db->set('ino', $data['ino']);
 			$this->db->set('date', $data['date']);
 			$this->db->set('lon', $data['lon']);
