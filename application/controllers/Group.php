@@ -12,7 +12,7 @@ class Group  extends CI_Controller{
 	link : http://(serverIP)/index.php/Group/tempIno?ino=(ino)
 	*/
 	function tempIno(){
-		$ino = $this->input->get('ino');
+		$ino = $this->input->get('ino', true);
 		$temp_ino=$this->Group_model->add($ino);
 
 		if($temp_ino ==TRUE){
@@ -33,7 +33,7 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 
 */
 	function match(){
-		$ino=$this->input->get('ino');
+		$ino=$this->input->get('ino', true);
 		$result=$this->Group_model->match($ino);
 
 		if ($result['result'] == 1) {
@@ -57,12 +57,12 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 	link : http://(serverIP)/index.php/Group/register?ino=(ino)&uname=(uname)&id=(id)&pname=(pname)&relat=(relat)&op=(op)
 	*/
 	function register(){
-		$ino   = $this->input->get('ino');
-		$uname = $this->input->get('uname');
-		$id    = $this->input->get('id');
-		$pname = $this->input->get('pname');
-		$relat = $this->input->get('relat');
-		$op    = $this->input->get('op');
+		$ino   = $this->input->get('ino', true);
+		$uname = $this->input->get('uname', true);
+		$id    = $this->input->get('id', true);
+		$pname = $this->input->get('pname', true);
+		$relat = $this->input->get('relat', true);
+		$op    = $this->input->get('op', true);
 
 		$ino_data=$this->Group_model->match($ino);
 		/**
@@ -90,7 +90,7 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 	return: pname[]
 	*/
 	function getGroups() {
-		$id = $this->input->get('id');
+		$id = $this->input->get('id', true);
 		if ( 0 != strcmp($id, '') ) {
 			$result = $this->Group_model->getGroupList($id);
 			echo $this->urldecodeArr(json_encode($result));
@@ -103,8 +103,8 @@ match메소드는 링크로부터 ino를 가지고 와서 json타입으로 반�
 	return: (ino, relat)[]
 	*/
 	function getDevices() {
-		$id = $this->input->get('id');
-		$pname = $this->input->get('pname');
+		$id = $this->input->get('id', true);
+		$pname = $this->input->get('pname', true);
 		if ( 0 != strcmp($id, '') && 0 != strcmp($pname, '') )	{
 			$result = $this->Group_model->getDeviceList($id, $pname);
 			echo $this->urldecodeArr(json_encode($result));

@@ -18,7 +18,7 @@ class Emerg extends CI_Controller {
 	link : http://(serverIP)/index.php/Emerg/getinfo?ino=(ino)
 	*/
 	public function getinfo(){
-		$ino = $this->input->get('ino');
+		$ino = $this->input->get('ino', true);
 		$loc_data=$this->emerg_model->getdata($ino);
 		$get_id_data=$this->emerg_model->groupcheck($ino);
 		$loc_id_data=array($loc_data[0],$get_id_data);

@@ -12,7 +12,7 @@
 	link : http://(serverIP)/index.php/Geofence/getGeofence?ino=(ino)
 	*/
 	function getGeofence(){
-		$ino = $this->input->get('ino');
+		$ino = $this->input->get('ino', true);
 		$geofenceData=$this->Geofence_model->getGeofenceData($ino);
 		 echo json_encode($geofenceData);
 	}

@@ -16,9 +16,9 @@ id와 변경할 비밀번호 change_pw 변수를 change메서드로 넘긴다.
 result로 0을 어플에 반환한다.
 */
 	function check(){
-		$id=$this->input->get('id');
-		$pw=$this->input->get('pw');
-		$newPw=$this->input->get('newPw');
+		$id=$this->input->get('id', true);
+		$pw=$this->input->get('pw', true);
+		$newPw=$this->input->get('newPw', true);
 
 
 		$result = array('result' => 0);

@@ -11,10 +11,18 @@ class Location extends CI_Controller {
 	link : http://(serverIP)/index.php/Location/insertLocaton?ino=(ino)&date=(date)&lon=(lon)&lat=(lat)
 	*/
 	function insertLocation() {
-		$ino  = $this->input->get('ino');
-		$date = $this->input->get('date');
-		$lon  = $this->input->get('lon');
-		$lat  = $this->input->get('lat');
+		$ino  = $this->input->post('ino', true);
+		$date = $this->input->post('date', true);
+		$lon  = $this->input->post('lon', true);
+		$lat  = $this->input->post('lat', true);
+		if ( $ino == null || $date == null || $lon == null || $lat == null ) {
+			echo json_encode(array('resut' => 0));
+			return 0;
+		}
+		if ( strcmp($ino, "NULL")==0 || strcmp($date, "NULL")==0 || strcmp($lon, "NULL")==0 || strcmp($lat, "NULL")==0 ) {
+			echo json_encode(array('result' => 0));
+			return 0; 
+		}
 
 		$formatedStr = substr($date, 0, 4)."-".substr($date, 4, 2)."-".substr($date, 6, 2)." "
 						.substr($date, 8, 2).":".substr($date, 10, 2).":".substr($date, 12, 2);
@@ -35,9 +43,10 @@ class Location extends CI_Controller {
 	link : http://(serverIP)/index.php/Location/searchLocations?ino=(ino)
 	*/
 	function searchLocations(){
-		$ino  = $this->input->get('ino');
-		$get_loc_data=$this->search_model->getLocations($ino);
+		$ino  = $this->input->get('ino', true);
+		$get_loc_data=$this->Location_model->getLocations($ino);
 		echo json_encode($get_loc_data);
 	}
+
 }
 ?>

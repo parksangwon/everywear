@@ -17,6 +17,7 @@ class Location_model extends CI_Model {
 
 		$json_data = array('result' => 0);
 		if ($device['result']  != 0) {
+echo $data['date'];
 			$this->db->set('ino', $data['ino']);
 			$this->db->set('date', $data['date']);
 			$this->db->set('lon', $data['lon']);
@@ -38,7 +39,7 @@ class Location_model extends CI_Model {
 	일련번호가 ino인 위치데이터들을 가져와서 return
 	*/
 	function getLocations($ino){
-		$query="SELECT * FROM LOCATION WHERE INO='$ino'";
+		$query="SELECT * FROM LOCATION WHERE INO='$ino' AND DATE LIKE '2015-10-26%' ORDER BY DATE DESC LIMIT 100";
 		$loc_data=$this->db->query($query)->result_array();
 		return $loc_data;
 	}

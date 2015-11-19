@@ -12,7 +12,7 @@ class User  extends CI_Controller{
 	link : http://(serverIP)/index.php/User/checkDevice?ino=(ino)
 	*/
 	function validId() {
-		$id = $this->input->get('id');
+		$id = $this->input->get('id', true);
 		$result = $this->User_model->isExsist($id);
 		$result = $this->toArray($result);
 		echo json_encode($result);
@@ -24,8 +24,8 @@ class User  extends CI_Controller{
 	link : http://(serverIP)/index.php/User/checkId?id=(id)&pw=(pw)
 	*/
 	function checkId() {
-		$id = $this->input->get('id');
-		$pw = $this->input->get('pw');
+		$id = $this->input->get('id', true);
+		$pw = $this->input->get('pw', true);
 		$result=$this->User_model->searchUser($id,$pw);
 		echo urldecode( json_encode( $result ) );
 	}
@@ -35,7 +35,7 @@ class User  extends CI_Controller{
 	link : http://(serverIP)/index.php/User/checkDevice?ino=(ino)
 	*/
 	function checkDevice() {
-		$ino = $this->input->get('ino');
+		$ino = $this->input->get('ino', true);
 		$result = $this->User_model->searchDevice($ino);
 		echo json_encode($result);
 	}
@@ -48,13 +48,13 @@ class User  extends CI_Controller{
 	link : http://(serverIP)/index.php/User/register?id=(id)&pw=(pw)&name=(name)&email=(email)&sex=(sex)
 	*/
 	function register() {
-		$id = $this->input->get('id');
-		$pw = $this->input->get('pw');
-		$name = urldecode( $this->input->get('name') );
-		$email = $this->input->get('email');
-		$sex = $this->input->get('sex');
+		$id = $this->input->get('id', true);
+		$pw = $this->input->get('pw', true);
+		$name = urldecode( $this->input->get('name', true) );
+		$email = $this->input->get('email', true);
+		$sex = $this->input->get('sex', true);
 
-		$result = $this->toArray(false);
+		$result = array("result" => false);
 		if ( strcmp("", $id)!=0 && strcmp("", $pw)!=0 && strcmp("", $name)!=0 && strcmp("", $email)!=0 && strcmp("", $sex)!=0 ) {
 			$result = $this->User_model->addUser(array(
 				'id'	  => $id,
@@ -69,7 +69,7 @@ class User  extends CI_Controller{
 
 	// 개인정보 조회
 	function checkInfo() {
-		$id = urldecode( $this->input->get('id') );
+		$id = urldecode( $this->input->get('id', true) );
 
 		$result = array('result'=>0);
 		if ( strcmp("", $id) != 0 ) {
